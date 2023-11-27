@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const flowerSchema = mongoose.Schema({
     name: {type:String, required: true},
     description: {type:String, required: true},
-    trefle_id: {type:Number, required: true},
+    trefle_id: {type:Number, required: false},
 
     creationDate: {type:Date, required: true},
     creationUser: {type:String, required: true},
