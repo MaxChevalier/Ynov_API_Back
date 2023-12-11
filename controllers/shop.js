@@ -12,13 +12,13 @@ exports.createShop = (req, res, next) => {
         openingHours: req.body.openingHours,
         workers: req.body.workers,
         creationDate: new Date(),
-        creationUser: req.userData.userId,
+        creationUser: "admin",
         modificationDate: new Date(),
-        modificationUser: req.userData.userId,
+        modificationUser: "admin",
         active: true
     });
     shop.save().then(createdShop => {
-        logger.info('ShopController::createShop::success', createdShop);
+        logger.info('ShopController/createShop : ', createdShop);
         res.status(201).json({
             message: 'Shop added successfully',
             shop: {
@@ -27,7 +27,7 @@ exports.createShop = (req, res, next) => {
             }
         });
     }).catch(error => {
-        logger.error('ShopController::createShop::error', error);
+        logger.error('ShopController/createShop : ', error);
         res.status(500).json({
             message: 'Creating a shop failed'
         });
@@ -36,26 +36,15 @@ exports.createShop = (req, res, next) => {
 
 exports.updateShop = (req, res, next) => {
     logger.info('Updating shop');
-    const shop = new Shop({
-        _id: req.body.id,
-        name: req.body.name,
-        description: req.body.description,
-        address: req.body.address,
-        phone: req.body.phone,
-        email: req.body.email,
-        openingHours: req.body.openingHours,
-        workers: req.body.workers,
-        modificationDate: new Date(),
-        modificationUser: req.userData.userId,
-        active: req.body.active
-    });
-    Shop.updateOne({_id: req.params.id}, shop).then(result => {
-        logger.info('ShopController::updateShop::success', result);
+
+    req.body.modificationDate = new Date();
+    Shop.updateOne({_id: req.params.id}, req.body).then(result => {
+        logger.info('ShopController/updateShop : ', result);
         res.status(200).json({
             message: 'Shop updated successfully'
         });
     }).catch(error => {
-        logger.error('ShopController::updateShop::error', error);
+        logger.error('ShopController/updateShop : ', error);
         res.status(500).json({
             message: 'Updating a shop failed'
         });
@@ -66,14 +55,14 @@ exports.getShop = (req, res, next) => {
     logger.info('Getting shop');
     Shop.findById(req.params.id).then(shop => {
         if (shop) {
-            logger.info('ShopController::getShop::success', shop);
+            logger.info('ShopController/getShop : ', shop);
             res.status(200).json(shop);
         } else {
-            logger.error('ShopController::getShop::error', 'Shop not found');
+            logger.error('ShopController/getShop : ', 'Shop not found');
             res.status(404).json({message: 'Shop not found'});
         }
     }).catch(error => {
-        logger.error('ShopController::getShop::error', error);
+        logger.error('ShopController/getShop : ', error);
         res.status(500).json({
             message: 'Fetching shop failed'
         });
@@ -93,14 +82,14 @@ exports.getShops = (req, res, next) => {
         fetchedShops = documents;
         return Shop.count();
     }).then(count => {
-        logger.info('ShopController::getShops::success', fetchedShops);
+        logger.info('ShopController/getShops : ', fetchedShops);
         res.status(200).json({
             message: 'Shops fetched successfully',
             shops: fetchedShops,
             maxShops: count
         });
     }).catch(error => {
-        logger.error('ShopController::getShops::error', error);
+        logger.error('ShopController/getShops : ', error);
         res.status(500).json({
             message: 'Fetching shops failed'
         });
@@ -110,10 +99,10 @@ exports.getShops = (req, res, next) => {
 exports.deleteShop = (req, res, next) => {
     logger.info('Deleting shop');
     Shop.deleteOne({_id: req.params.id}).then(result => {
-        logger.info('ShopController::deleteShop::success', result);
+        logger.info('ShopController/deleteShop : ', result);
         res.status(200).json({message: 'Shop deleted'});
     }).catch(error => {
-        logger.error('ShopController::deleteShop::error', error);
+        logger.error('ShopController/deleteShop : ', error);
         res.status(500).json({
             message: 'Deleting shop failed'
         });

@@ -7,20 +7,20 @@ exports.createFlower = (req, res, next) => {
         description: req.body.description,
         trefle_id: req.body.trefle_id,
         creationDate: new Date(),
-        creationUser: req.userData.userId,
+        creationUser: "admin",
         modificationDate: new Date(),
-        modificationUser: req.userData.userId,
+        modificationUser: "admin",
         active: true
     });
 
     flower.save().then(result => {
-        logger.info('FlowerController::createFlower::success', result);
+        logger.info('FlowerController/createFlower : ', result);
         res.status(201).json({
             message: 'Flower added successfully',
             flowerId: result._id
         });
     }).catch(error => {
-        logger.error('FlowerController::createFlower::error', error);
+        logger.error('FlowerController/createFlower : ', error);
         res.status(500).json({
             message: 'Creating a flower failed!'
         });
@@ -29,20 +29,19 @@ exports.createFlower = (req, res, next) => {
 
 exports.updateFlower = (req, res, next) => {
     const flower = new Flower({
-        _id: req.body.id,
         name: req.body.name,
         description: req.body.description,
         trefle_id: req.body.trefle_id,
         modificationDate: new Date(),
-        modificationUser: req.userData.userId,
+        modificationUser: "admin",
         active: true
     });
 
     Flower.updateOne({_id: req.params.id}, flower).then(result => {
-        logger.info('FlowerController::updateFlower::success', result);
+        logger.info('FlowerController/updateFlower : ', result);
         res.status(200).json({message: 'Update successful!'});
     }).catch(error => {
-        logger.error('FlowerController::updateFlower::error', error);
+        logger.error('FlowerController/updateFlower : ', error);
         res.status(500).json({
             message: 'Could not update flower!'
         });
@@ -51,13 +50,13 @@ exports.updateFlower = (req, res, next) => {
 
 exports.getFlowers = (req, res, next) => {
     Flower.find().then(documents => {
-        logger.info('FlowerController::getFlowers::success', documents);
+        logger.info('FlowerController/getFlowers : ', documents);
         res.status(200).json({
             message: 'Flowers fetched successfully!',
             flowers: documents
         });
     }).catch(error => {
-        logger.error('FlowerController::getFlowers::error', error);
+        logger.error('FlowerController/getFlowers : ', error);
         res.status(500).json({
             message: 'Fetching flowers failed!'
         });
@@ -67,14 +66,14 @@ exports.getFlowers = (req, res, next) => {
 exports.getFlower = (req, res, next) => {
     Flower.findById(req.params.id).then(flower => {
         if (flower) {
-            logger.info('FlowerController::getFlower::success', flower);
+            logger.info('FlowerController/getFlower : ', flower);
             res.status(200).json(flower);
         } else {
-            logger.error('FlowerController::getFlower::error', 'Flower not found');
+            logger.error('FlowerController/getFlower : ', 'Flower not found');
             res.status(404).json({message: 'Flower not found!'});
         }
     }).catch(error => {
-        logger.error('FlowerController::getFlower::error', error);
+        logger.error('FlowerController/getFlower : ', error);
         res.status(500).json({
             message: 'Fetching flower failed!'
         });
@@ -83,10 +82,10 @@ exports.getFlower = (req, res, next) => {
 
 exports.deleteFlower = (req, res, next) => {
     Flower.deleteOne({_id: req.params.id}).then(result => {
-        logger.info('FlowerController::deleteFlower::success', result);
+        logger.info('FlowerController/deleteFlower : ', result);
         res.status(200).json({message: 'Flower deleted!'});
     }).catch(error => {
-        logger.error('FlowerController::deleteFlower::error', error);
+        logger.error('FlowerController/deleteFlower : ', error);
         res.status(500).json({
             message: 'Deleting flower failed!'
         });

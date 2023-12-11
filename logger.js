@@ -1,13 +1,11 @@
 const winston = require('winston');
 
 const logger = winston.createLogger({
-    level: 'info',
     format: winston.format.combine(
-        winston.format.colorize({ colors: ["red"] }),
+        winston.format.timestamp({ format: 'DD/MM/YYYY-HH:mm:ss' }),
         winston.format.printf(({ level, message, timestamp }) => {
             return `[${level}] - ${timestamp} : ${message}`;
         }),
-        winston.format.timestamp({ format: 'DD/MM/YYYY-HH:mm:ss' })
     ),
     transports: [
         new winston.transports.File({ filename: 'log/debug.log' }),

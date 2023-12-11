@@ -11,3 +11,8 @@ const IdDB = <nom_utilisateur>
 const PasswordDB = <mot_de_passe_utilisateur>
 export const HostDB = 'mongodb+srv://'+IdDB+':'+PasswordDB+'@cluster0.swu8zte.mongodb.net/'
 ```
+
+- instaler les depandaces avec la commande 
+```bash
+cat requirements.txt | npm install -g
+```

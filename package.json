@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/MaxChevalier/Ynov_API_Back/issues"
   },
-  "homepage": "https://github.com/MaxChevalier/Ynov_API_Back#readme"
+  "homepage": "https://github.com/MaxChevalier/Ynov_API_Back#readme",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "winston": "^3.11.0"
+  }
 }
