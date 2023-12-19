@@ -9,6 +9,8 @@ RUN npm install express
 RUN npm install body-parser
 RUN npm install mongoose
 RUN npm install bcrypt
+RUN npm install jsonwebtoken
+RUN npm install winston
 
 COPY . .
 
