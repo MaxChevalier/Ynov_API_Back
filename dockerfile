@@ -11,6 +11,7 @@ RUN npm install mongoose
 RUN npm install bcrypt
 RUN npm install jsonwebtoken
 RUN npm install winston
+RUN npm install compression
 
 COPY . .
 
