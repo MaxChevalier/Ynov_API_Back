@@ -14,8 +14,6 @@ const shopRoute = require('./routes/shop');
 const app = express();
 app.use(compression());
 
-console.log('HostDB', HostDB);
-
 mongoose.connect(HostDB).then(() => {
     console.log('Connected to MongoDB with Success !');
 }).catch((err) => {
