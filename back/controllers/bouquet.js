@@ -31,18 +31,8 @@ exports.createBouquet = (req, res, next) => {
 }
 
 exports.updateBouquet = (req, res, next) => {
-    const bouquet = new Bouquet({
-        name: req.body.name,
-        description: req.body.description,
-        price: req.body.price,
-        quantity: req.body.quantity,
-        flowers: req.body.flowers,
-        shop: req.body.shop,
-        modificationDate: new Date(),
-        modificationUser: "admin",
-        active: req.body.active
-    });
-    Bouquet.updateOne({_id: req.params.id}, bouquet).then(result => {
+    req.body.modificationDate = new Date();
+    Bouquet.updateOne({_id: req.params.id}, req.body).then(result => {
         logger.info('BouquetController/updateBouquet : ', result);
         res.status(200).json({message: "Update successful!"});
     }).catch(error => {

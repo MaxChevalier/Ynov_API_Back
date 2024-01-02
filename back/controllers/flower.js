@@ -29,16 +29,8 @@ exports.createFlower = (req, res, next) => {
 }
 
 exports.updateFlower = (req, res, next) => {
-    const flower = new Flower({
-        name: req.body.name,
-        description: req.body.description,
-        trefle_id: req.body.trefle_id,
-        modificationDate: new Date(),
-        modificationUser: "admin",
-        active: true
-    });
-
-    Flower.updateOne({_id: req.params.id}, flower).then(result => {
+    req.body.modificationDate = new Date();
+    Flower.updateOne({_id: req.params.id}, req.body).then(result => {
         logger.info('FlowerController/updateFlower : ', result);
         res.status(200).json({message: 'Update successful!'});
     }).catch(error => {
