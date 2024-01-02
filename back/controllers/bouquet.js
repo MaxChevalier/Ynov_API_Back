@@ -96,7 +96,7 @@ exports.getBouquets = (req, res, next) => {
     }
     bouquetQuery.then(documents => {
         fetchedBouquets = documents;
-        return Bouquet.count();
+        return fetchedBouquets.countDocuments();
     }).then(count => {
         logger.info('BouquetController/getBouquets : ', fetchedBouquets);
         res.status(200).json({
