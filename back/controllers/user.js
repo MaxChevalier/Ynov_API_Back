@@ -32,6 +32,7 @@ exports.createUser = (req, res) => {
             });
 
             user.save().then((savedUser) => {
+                console.log("un user a été créé");
                 res.status(200).json({ "message": "Création de User bien réalisée", "user": savedUser });
             }).catch((err) => {
                 res.status(405).json({ "message": "Erreur lors de la création de User, vérifier le body", "err": err });
