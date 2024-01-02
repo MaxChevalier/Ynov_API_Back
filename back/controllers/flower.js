@@ -62,6 +62,25 @@ exports.getFlower = (req, res, next) => {
     Flower.findById(req.params.id).then(flower => {
         if (flower) {
             logger.info('FlowerController/getFlower : ', flower);
+            // get from trefle
+            const axios = require('axios');
+            const url = 'https://trefle.io/api/v1/species/' + flower.trefle_id + '?token=' + require('../Config').trefleToken;
+            axios.get(url).then(response => {
+                logger.info('FlowerController/getFlower : ', response.data);
+                returnData = {
+                    _id: flower._id,
+                    name: flower.name,
+                    description: flower.description,
+                    details: response.data
+                }
+                res.status(200).json(returnData);
+            }).catch(error => {
+                logger.error('FlowerController/getFlower : ', error);
+                console.log('FlowerController/getFlower : ', error);
+                res.status(500).json({
+                    message: 'Fetching flower failed!'
+                });
+            });
             res.status(200).json(flower);
         } else {
             logger.error('FlowerController/getFlower : ', 'Flower not found');
