@@ -69,7 +69,7 @@ exports.getFlower = (req, res, next) => {
             axios.get(url).then(response => {
                 logger.info('FlowerController/getFlower : ', response.data);
                 flower.details = response.data;
-                res.status(200).json(returnData);
+                res.status(200).json(flower);
             }).catch(error => {
                 logger.error('FlowerController/getFlower : ', error);
                 console.log('FlowerController/getFlower : ', error);
