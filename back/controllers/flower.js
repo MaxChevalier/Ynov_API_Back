@@ -65,6 +65,7 @@ exports.getFlower = (req, res, next) => {
             // get from trefle
             const axios = require('axios');
             const url = 'https://trefle.io/api/v1/species/' + flower.trefle_id + '?token=' + require('../Config').trefleToken;
+            console.log(url)
             axios.get(url).then(response => {
                 logger.info('FlowerController/getFlower : ', response.data);
                 flower.details = response.data;
