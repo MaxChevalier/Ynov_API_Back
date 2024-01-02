@@ -80,7 +80,7 @@ exports.getShops = (req, res, next) => {
     }
     shopQuery.then(documents => {
         fetchedShops = documents;
-        return fetchedShops.countDocuments();
+        return fetchedShops.countDocuments;
     }).then(count => {
         logger.info('ShopController/getShops : ', fetchedShops);
         res.status(200).json({
