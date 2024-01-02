@@ -23,6 +23,7 @@ exports.createBouquet = (req, res, next) => {
         });
     }).catch(error => {
         logger.error('BouquetController/createBouquet : ', error);
+        console.log('BouquetController/createBouquet : ', error);
         res.status(500).json({
             message: 'Creating a bouquet failed!'
         });
@@ -46,6 +47,7 @@ exports.updateBouquet = (req, res, next) => {
         res.status(200).json({message: "Update successful!"});
     }).catch(error => {
         logger.error('BouquetController/updateBouquet : ', error);
+        console.log('BouquetController/updateBouquet : ', error);
         res.status(500).json({
             message: "Couldn't update bouquet!"
         });
@@ -59,10 +61,12 @@ exports.getBouquet = (req, res, next) => {
             res.status(200).json(bouquet);
         } else {
             logger.error('BouquetController/getBouquet : ', 'Bouquet not found');
+            console.log('BouquetController/getBouquet : ', 'Bouquet not found');
             res.status(404).json({message: 'Bouquet not found!'});
         }
     }).catch(error => {
         logger.error('BouquetController/getBouquet : ', error);
+        console.log('BouquetController/getBouquet : ', error);
         res.status(500).json({
             message: "Fetching bouquet failed!"
         });
@@ -75,6 +79,7 @@ exports.deleteBouquet = (req, res, next) => {
         res.status(200).json({message: 'Bouquet deleted!'});
     }).catch(error => {
         logger.error('BouquetController/deleteBouquet : ', error);
+        console.log('BouquetController/deleteBouquet : ', error);
         res.status(500).json({
             message: "Deleting bouquet failed!"
         });
@@ -101,6 +106,7 @@ exports.getBouquets = (req, res, next) => {
         });
     }).catch(error => {
         logger.error('BouquetController/getBouquets : ', error);
+        console.log('BouquetController/getBouquets : ', error);
         res.status(500).json({
             message: "Fetching bouquets failed!"
         });
@@ -116,6 +122,7 @@ exports.getBouquetsByShop = (req, res, next) => {
         });
     }).catch(error => {
         logger.error('BouquetController/getBouquetsByShop : ', error);
+        console.log('BouquetController/getBouquetsByShop : ', error);
         res.status(500).json({
             message: "Fetching bouquets failed!"
         });

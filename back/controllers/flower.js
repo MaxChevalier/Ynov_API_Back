@@ -21,6 +21,7 @@ exports.createFlower = (req, res, next) => {
         });
     }).catch(error => {
         logger.error('FlowerController/createFlower : ', error);
+        console.log('FlowerController/createFlower : ', error);
         res.status(500).json({
             message: 'Creating a flower failed!'
         });
@@ -42,6 +43,7 @@ exports.updateFlower = (req, res, next) => {
         res.status(200).json({message: 'Update successful!'});
     }).catch(error => {
         logger.error('FlowerController/updateFlower : ', error);
+        console.log('FlowerController/updateFlower : ', error);
         res.status(500).json({
             message: 'Could not update flower!'
         });
@@ -57,6 +59,7 @@ exports.getFlowers = (req, res, next) => {
         });
     }).catch(error => {
         logger.error('FlowerController/getFlowers : ', error);
+        console.log('FlowerController/getFlowers : ', error);
         res.status(500).json({
             message: 'Fetching flowers failed!'
         });
@@ -70,10 +73,12 @@ exports.getFlower = (req, res, next) => {
             res.status(200).json(flower);
         } else {
             logger.error('FlowerController/getFlower : ', 'Flower not found');
+            console.log('FlowerController/getFlower : ', 'Flower not found');
             res.status(404).json({message: 'Flower not found!'});
         }
     }).catch(error => {
         logger.error('FlowerController/getFlower : ', error);
+        console.log('FlowerController/getFlower : ', error);
         res.status(500).json({
             message: 'Fetching flower failed!'
         });
@@ -86,6 +91,7 @@ exports.deleteFlower = (req, res, next) => {
         res.status(200).json({message: 'Flower deleted!'});
     }).catch(error => {
         logger.error('FlowerController/deleteFlower : ', error);
+        console.log('FlowerController/deleteFlower : ', error);
         res.status(500).json({
             message: 'Deleting flower failed!'
         });
