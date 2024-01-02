@@ -67,12 +67,8 @@ exports.getFlower = (req, res, next) => {
             const url = 'https://trefle.io/api/v1/species/' + flower.trefle_id + '?token=' + require('../Config').trefleToken;
             axios.get(url).then(response => {
                 logger.info('FlowerController/getFlower : ', response.data);
-                returnData = {
-                    _id: flower._id,
-                    name: flower.name,
-                    description: flower.description,
-                    details: response.data
-                }
+                returnData = flower.tojson();
+                returnData.details = response.data;
                 res.status(200).json(returnData);
             }).catch(error => {
                 logger.error('FlowerController/getFlower : ', error);
@@ -81,7 +77,6 @@ exports.getFlower = (req, res, next) => {
                     message: 'Fetching flower failed!'
                 });
             });
-            res.status(200).json(flower);
         } else {
             logger.error('FlowerController/getFlower : ', 'Flower not found');
             console.log('FlowerController/getFlower : ', 'Flower not found');
